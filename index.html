@@ -3,106 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SynIdea - Physical Business Depth</title>
+    <title>SynIdea - KAD Tree Navigator</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        :root { --primary: #2563eb; --phys: #3b82f6; --bg: #f8fafc; }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: var(--bg); margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
-        .container { background: white; padding: 40px; border-radius: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.05); text-align: center; max-width: 650px; width: 100%; }
-        .logo-box { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 20px; }
-        .bulb { font-size: 50px; color: #f1c40f; }
-        .logo-text { font-size: 40px; font-weight: 800; color: #1e293b; letter-spacing: -1.5px; }
-        .logo-text span { color: var(--primary); }
-        h2 { color: #1e293b; margin-bottom: 10px; }
-        h3 { color: #64748b; margin-bottom: 25px; font-weight: 400; }
-        .pillar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        .pillar-card { 
-            background: white; border: 2px solid #e2e8f0; padding: 20px; border-radius: 20px;
-            cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; align-items: center; gap: 10px;
+        :root { --primary: #2563eb; --folder: #f59e0b; --bg: #f1f5f9; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: var(--bg); margin: 0; padding: 20px; display: flex; justify-content: center; }
+        .container { background: white; padding: 30px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 700px; width: 100%; text-align: center; }
+        
+        .header { margin-bottom: 30px; }
+        .logo { font-size: 32px; font-weight: 800; color: #1e293b; }
+        .logo span { color: var(--primary); }
+
+        /* Tree Styles */
+        .tree-container { text-align: left; border-left: 2px solid #e2e8f0; padding-left: 15px; margin-top: 20px; }
+        .node { 
+            padding: 12px 15px; margin: 8px 0; background: #fff; border: 1px solid #e2e8f0; 
+            border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 12px;
+            transition: 0.2s; font-size: 15px; font-weight: 500; color: #334155;
         }
-        .pillar-card:hover { border-color: var(--primary); background: #f0f7ff; transform: translateY(-3px); }
-        .pillar-card i { font-size: 30px; color: var(--primary); }
-        .btn-back { background: none; border: none; color: #64748b; margin-top: 30px; cursor: pointer; font-weight: 600; text-decoration: underline; }
+        .node:hover { background: #f8fafc; border-color: var(--primary); transform: translateX(5px); }
+        .node i { color: var(--folder); font-size: 20px; }
+        .node.section { background: #eff6ff; color: #1e40af; border-color: #bfdbfe; }
+        
+        .breadcrumb { font-size: 14px; color: #64748b; margin-bottom: 20px; display: flex; gap: 5px; }
+        .btn-back { background: #64748b; color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; margin-top: 20px; }
+        
         .menu-section { display: none; }
-        .active { display: block; animation: fadeIn 0.4s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .active { display: block; animation: slideIn 0.3s ease; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div id="start" class="menu-section active">
-        <div class="logo-box"><i class="material-icons bulb">lightbulb</i><div class="logo-text">Syn<span>Idea</span></div></div>
-        <h2>Καλώς ήρθες</h2>
-        <button style="background: var(--phys); color:white; padding: 20px; width: 100%; border-radius: 15px; border:none; font-size: 18px; font-weight: 700; cursor:pointer;" onclick="showNext('choice-step')">🚀 Ξεκινήστε Εδώ</button>
+    <div class="header">
+        <div class="logo">Syn<span>Idea</span></div>
+        <p>Φάκελος Επιχειρηματικής Δραστηριότητας (ΚΑΔ)</p>
     </div>
 
-    <div id="choice-step" class="menu-section">
-        <h2>Τύπος Ιδέας</h2>
-        <div class="pillar-grid">
-            <div class="pillar-card" onclick="showNext('phys-pillars')"><i class="material-icons">store</i><span>Φυσική Επιχείρηση</span></div>
-            <div class="pillar-card" onclick="alert('Ψηφιακό Δέντρο: Σύντομα...')"><i class="material-icons">devices</i><span>Ψηφιακή Ιδέα</span></div>
+    <div id="lvl-1" class="menu-section active">
+        <h3>Επιλέξτε Κύριο Τμήμα</h3>
+        <div class="tree-container">
+            <div class="node section" onclick="showNext('lvl-2-C')"><i class="material-icons">factory</i>Τμήμα Γ: ΜΕΤΑΠΟΙΗΣΗ</div>
+            <div class="node section" onclick="showNext('lvl-2-G')"><i class="material-icons">shopping_cart</i>Τμήμα Ζ: ΧΟΝΔΡΙΚΟ & ΛΙΑΝΙΚΟ ΕΜΠΟΡΙΟ</div>
+            <div class="node section" onclick="showNext('lvl-2-I')"><i class="material-icons">hotel</i>Τμήμα Ι: ΚΑΤΑΛΥΜΑΤΑ & ΕΣΤΙΑΣΗ</div>
+            <div class="node section" onclick="showNext('lvl-2-L')"><i class="material-icons">home</i>Τμήμα Μ: ΔΙΑΧΕΙΡΙΣΗ ΑΚΙΝΗΤΗΣ ΠΕΡΙΟΥΣΙΑΣ</div>
+            <div class="node section" onclick="alert('Σύντομα...')"><i class="material-icons">more_horiz</i>Υπόλοιπα Τμήματα (Α-Σ)...</div>
         </div>
-        <button class="btn-back" onclick="showNext('start')">Πίσω</button>
     </div>
 
-    <div id="phys-pillars" class="menu-section">
-        <h2>Τομέας Φυσικής Επιχείρησης</h2>
-        <div class="pillar-grid">
-            <div class="pillar-card" onclick="showNext('sub-production')"><i class="material-icons">factory</i><span>Παραγωγή & Ενέργεια</span></div>
-            <div class="pillar-card" onclick="showNext('sub-assets')"><i class="material-icons">apartment</i><span>Υποδομές & Ακίνητα</span></div>
-            <div class="pillar-card" onclick="showNext('sub-trade')"><i class="material-icons">local_mall</i><span>Εμπόριο & Τουρισμός</span></div>
-            <div class="pillar-card" onclick="showNext('sub-services')"><i class="material-icons">handshake</i><span>Υπηρεσίες</span></div>
+    <div id="lvl-2-C" class="menu-section">
+        <div class="breadcrumb">Τμήμα Γ > Μεταποίηση</div>
+        <h3>Επιλέξτε Κλάδο</h3>
+        <div class="tree-container">
+            <div class="node" onclick="showNext('lvl-3-C10')"><i class="material-icons">restaurant</i>10: Βιομηχανία Τροφίμων</div>
+            <div class="node" onclick="alert('Ποτά')"><i class="material-icons">local_bar</i>11: Ποτοποιία</div>
+            <div class="node" onclick="alert('Ένδυση')"><i class="material-icons">checkroom</i>14: Κατασκευή Ειδών Ένδυσης</div>
         </div>
-        <button class="btn-back" onclick="showNext('choice-step')">Πίσω</button>
+        <button class="btn-back" onclick="showNext('lvl-1')">Πίσω</button>
     </div>
 
-    <div id="sub-production" class="menu-section">
-        <h2>Παραγωγή & Ενέργεια</h2>
-        <h3>Εξειδίκευση:</h3>
-        <div class="pillar-grid">
-            <div class="pillar-card" onclick="showFinal()"><span>🌾 Αγροδιατροφή</span></div>
-            <div class="pillar-card" onclick="showFinal()"><span>🏭 Βιομηχανία</span></div>
-            <div class="pillar-card" onclick="showFinal()"><span>⚡ Ενέργεια / ΑΠΕ</span></div>
-            <div class="pillar-card" onclick="showFinal()"><span>📦 Συσκευασία</span></div>
+    <div id="lvl-3-C10" class="menu-section">
+        <div class="breadcrumb">Τμήμα Γ > Κλάδος 10</div>
+        <h3>Επιλέξτε Ομάδα</h3>
+        <div class="tree-container">
+            <div class="node" onclick="alert('Τελικός ΚΑΔ: 10.81 - Παραγωγή Ζάχαρης')">10.81: Παραγωγή Ζάχαρης</div>
+            <div class="node" onclick="alert('Τελικός ΚΑΔ: 10.82 - Σοκολατοποιία')">10.82: Παραγωγή Κακάο & Σοκολάτας</div>
+            <div class="node" onclick="alert('Τελικός ΚΑΔ: 10.83 - Καφές/Τσάι')">10.83: Επεξεργασία Τσαγιού & Καφέ</div>
         </div>
-        <button class="btn-back" onclick="showNext('phys-pillars')">Πίσω</button>
+        <button class="btn-back" onclick="showNext('lvl-2-C')">Πίσω</button>
     </div>
 
-    <div id="sub-assets" class="menu-section">
-        <h2>Υποδομές & Ακίνητα</h2>
-        <h3>Εξειδίκευση:</h3>
-        <div class="pillar-grid">
-            <div class="pillar-card" onclick="showFinal()"><span>🏠 Real Estate</span></div>
-            <div class="pillar-card" onclick="showFinal()"><span>🏗 Κατασκευές</span></div>
-            <div class="pillar-card" onclick="showFinal()"><span>🚚 Logistics</span></div>
-            <div class="pillar-card" onclick="showFinal()"><span>📦 Warehousing</span></div>
+    <div id="lvl-2-L" class="menu-section">
+        <div class="breadcrumb">Τμήμα Μ > Real Estate</div>
+        <h3>Επιλέξτε Δραστηριότητα</h3>
+        <div class="tree-container">
+            <div class="node" onclick="alert('ΚΑΔ 68.1: Αγοραπωλησία ιδιόκτητων ακινήτων')">68.1: Αγοραπωλησία Ιδιόκτητων Ακινήτων</div>
+            <div class="node" onclick="alert('ΚΑΔ 68.2: Εκμίσθωση/Διαχείριση ακινήτων')">68.2: Εκμίσθωση & Διαχείριση Ακινήτων</div>
+            <div class="node" onclick="alert('ΚΑΔ 68.3: Δραστηριότητες με αμοιβή/σύμβαση')">68.3: Μεσιτικά γραφεία</div>
         </div>
-        <button class="btn-back" onclick="showNext('phys-pillars')">Πίσω</button>
-    </div>
-
-    <div id="sub-trade" class="menu-section">
-        <h2>Εμπόριο & Τουρισμός</h2>
-        <h3>Εξειδίκευση:</h3>
-        <div class="pillar-grid">
-            <div class="pillar-card" onclick="showFinal()"><span>🛒 Εμπόριο (Retail/Wholesale)</span></div>
-            <div class="pillar-card" onclick="showFinal()"><span>🏨 Τουρισμός / Ξενοδοχεία</span></div>
-            <div class="pillar-card" onclick="showFinal()"><span>🍽 Εστίαση</span></div>
-            <div class="pillar-card" onclick="showFinal()"><span>🌍 Εισαγωγές / Εξαγωγές</span></div>
-        </div>
-        <button class="btn-back" onclick="showNext('phys-pillars')">Πίσω</button>
-    </div>
-
-    <div id="sub-services" class="menu-section">
-        <h2>Υπηρεσίες</h2>
-        <h3>Εξειδίκευση:</h3>
-        <div class="pillar-grid">
-            <div class="pillar-card" onclick="showFinal()"><span>🏥 Υγεία & Πρόνοια</span></div>
-            <div class="pillar-card" onclick="showFinal()"><span>🎓 Εκπαίδευση</span></div>
-            <div class="pillar-card" onclick="showFinal()"><span>💼 B2B Υπηρεσίες</span></div>
-            <div class="pillar-card" onclick="showFinal()"><span>🎨 Δημιουργική Βιομηχανία</span></div>
-        </div>
-        <button class="btn-back" onclick="showNext('phys-pillars')">Πίσω</button>
+        <button class="btn-back" onclick="showNext('lvl-1')">Πίσω</button>
     </div>
 
 </div>
@@ -111,9 +91,6 @@
     function showNext(id) {
         document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active'));
         document.getElementById(id).classList.add('active');
-    }
-    function showFinal() {
-        alert("Εξαιρετική επιλογή! Τώρα θα περάσουμε στην ανάλυση Κεφαλαίων & Συνεργατών.");
     }
 </script>
 
