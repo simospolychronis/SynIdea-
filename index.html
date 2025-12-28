@@ -6,43 +6,25 @@
     <title>SynIdea - Business Navigator</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f8fafc; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
-        .container { background: white; padding: 40px; border-radius: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.05); text-align: center; max-width: 550px; width: 90%; }
-        
-        .logo-box { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 10px; }
-        .bulb { font-size: 50px; color: #f1c40f; }
-        .logo-text { font-size: 38px; font-weight: 800; color: #1e293b; letter-spacing: -1.5px; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f8fafc; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+        .container { background: white; padding: 40px; border-radius: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.05); text-align: center; max-width: 550px; width: 100%; }
+        .logo-box { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .bulb { font-size: 45px; color: #f1c40f; }
+        .logo-text { font-size: 35px; font-weight: 800; color: #1e293b; }
         .logo-text span { color: #3b82f6; }
-        
-        p { color: #64748b; font-size: 1.1em; margin-bottom: 30px; }
-        h2 { color: #1e293b; margin-bottom: 20px; }
-
-        .btn-stack { display: flex; flex-direction: column; gap: 15px; align-items: center; }
-        
+        h2 { color: #1e293b; margin-bottom: 15px; font-size: 1.4rem; }
+        .btn-stack { display: flex; flex-direction: column; gap: 10px; width: 100%; align-items: center; }
         button { 
-            background-color: #3b82f6; color: white; border: none; 
-            padding: 16px 30px; font-size: 16px; cursor: pointer; 
-            border-radius: 14px; transition: all 0.2s; font-weight: 600; width: 100%; max-width: 380px;
-            display: flex; align-items: center; justify-content: center; gap: 10px;
+            background-color: #3b82f6; color: white; border: none; padding: 14px 20px; 
+            font-size: 15px; cursor: pointer; border-radius: 12px; transition: 0.2s; 
+            font-weight: 600; width: 100%; max-width: 400px; display: flex; align-items: center; justify-content: center; gap: 10px;
         }
-        
         button:hover { background-color: #2563eb; transform: translateY(-2px); }
-        .btn-invest { background-color: #10b981; }
-        .btn-invest:hover { background-color: #059669; }
-
-        /* Κουμπί Πίσω */
-        .btn-back { 
-            background-color: #f1f5f9; color: #64748b; margin-top: 25px; 
-            width: auto; padding: 10px 25px; font-size: 14px; border: 1px solid #e2e8f0;
-        }
-        .btn-back:hover { background-color: #e2e8f0; color: #1e293b; }
-
-        /* Grid για Τομείς */
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
-        .btn-small { padding: 12px; font-size: 14px; flex-direction: column; border-radius: 12px; }
-
+        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; }
+        .btn-small { padding: 12px; font-size: 13px; flex-direction: column; }
+        .btn-back { background-color: #f1f5f9; color: #64748b; margin-top: 20px; width: auto; font-size: 13px; border: 1px solid #e2e8f0; }
         .menu-section { display: none; }
-        .active { display: block; animation: fadeIn 0.4s ease; }
+        .active { display: block; animation: fadeIn 0.3s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
@@ -50,60 +32,136 @@
 
 <div class="container">
     <div id="start" class="menu-section active">
-        <div class="logo-box">
-            <span class="material-icons bulb">lightbulb</span>
-            <div class="logo-text">Syn<span>Idea</span></div>
-        </div>
-        <p>Καλώς ήρθες. Ποιο είναι το πλάνο σου;</p>
+        <div class="logo-box"><span class="material-icons bulb">lightbulb</span><div class="logo-text">Syn<span>Idea</span></div></div>
+        <p>Μετατρέπουμε την ιδέα σε επιχείρηση.</p>
         <div class="btn-stack">
-            <button onclick="showNext('type-choice')"><i class="material-icons">rocket</i> Έχω μια Ιδέα</button>
-            <button class="btn-invest" onclick="showNext('invest-path')"><i class="material-icons">payments</i> Θέλω να Επενδύσω</button>
+            <button onclick="showNext('type-choice')">🚀 Έχω μια Ιδέα</button>
+            <button onclick="showNext('invest-path')" style="background-color: #10b981;">💰 Θέλω να Επενδύσω</button>
         </div>
     </div>
 
     <div id="type-choice" class="menu-section">
-        <h2>Τι είδους ιδέα είναι;</h2>
+        <h2>Τι φτιάχνεις;</h2>
         <div class="btn-stack">
-            <button onclick="showNext('tech-path')"><i class="material-icons">devices</i> Ψηφιακή (App/Web/AI)</button>
-            <button onclick="showNext('physical-path')" style="background-color: #6366f1;"><i class="material-icons">storefront</i> Φυσική Επιχείρηση</button>
-            <button class="btn-back" onclick="showNext('start')"><i class="material-icons">arrow_back</i> Πίσω στην αρχή</button>
+            <button onclick="showNext('dig-1')">💻 Ψηφιακή Ιδέα (App/Web/AI)</button>
+            <button onclick="showNext('phys-1')" style="background-color: #6366f1;">🏢 Φυσική Επιχείρηση</button>
+            <button class="btn-back" onclick="showNext('start')">Πίσω</button>
         </div>
     </div>
 
-    <div id="physical-path" class="menu-section">
-        <h2>Επιλογή Τομέα</h2>
-        <div class="grid-2">
-            <button class="btn-small" onclick="showNext('real-estate-detail')"><i class="material-icons">home</i>Real Estate</button>
-            <button class="btn-small" onclick="alert('Οικοδομές')"><i class="material-icons">construction</i>Οικοδομές</button>
-            <button class="btn-small" onclick="showNext('factory-detail')"><i class="material-icons">factory</i>Παραγωγή</button>
-            <button class="btn-small" onclick="alert('Εμπόριο')"><i class="material-icons">shopping_bag</i>Εμπόριο</button>
-            <button class="btn-small" onclick="alert('Αγροδιατροφή')"><i class="material-icons">wheat_free</i>Αγροδιατροφή</button>
-            <button class="btn-small" onclick="alert('Τουρισμός')"><i class="material-icons">beach_access</i>Τουρισμός</button>
+    <div id="dig-1" class="menu-section">
+        <h2>Τύπος Ψηφιακής Ιδέας</h2>
+        <div class="btn-grid">
+            <button class="btn-small" onclick="showNext('dig-2')">App</button>
+            <button class="btn-small" onclick="showNext('dig-2')">Website</button>
+            <button class="btn-small" onclick="showNext('dig-2')">SaaS</button>
+            <button class="btn-small" onclick="showNext('dig-2')">AI</button>
+            <button class="btn-small" onclick="showNext('dig-2')">E-commerce</button>
+            <button class="btn-small" onclick="showNext('dig-2')">Άλλο</button>
         </div>
-        <button class="btn-back" onclick="showNext('type-choice')"><i class="material-icons">arrow_back</i> Πίσω</button>
+        <button class="btn-back" onclick="showNext('type-choice')">Πίσω</button>
     </div>
 
-    <div id="real-estate-detail" class="menu-section">
-        <h2>Real Estate</h2>
-        <p>Ποια είναι η κατηγορία;</p>
-        <div class="btn-stack">
-            <button onclick="alert('Κατοικίες')">Κατοικίες</button>
-            <button onclick="alert('Επαγγελματικά')">Επαγγελματικά Ακίνητα</button>
-            <button class="btn-back" onclick="showNext('physical-path')"><i class="material-icons">arrow_back</i> Πίσω</button>
+    <div id="dig-2" class="menu-section">
+        <h2>Τομέας Ψηφιακής Ιδέας</h2>
+        <div class="btn-grid">
+            <button class="btn-small" onclick="showNext('dig-3')">Υγεία</button>
+            <button class="btn-small" onclick="showNext('dig-3')">Εκπαίδευση</button>
+            <button class="btn-small" onclick="showNext('dig-3')">Fintech</button>
+            <button class="btn-small" onclick="showNext('dig-3')">B2B</button>
+            <button class="btn-back" style="grid-column: span 2;" onclick="showNext('dig-1')">Πίσω</button>
         </div>
+    </div>
+
+    <div id="dig-3" class="menu-section">
+        <h2>Τι αναζητάς;</h2>
+        <div class="btn-stack">
+            <button onclick="showNext('dig-4')">Χρηματοδότηση</button>
+            <button onclick="showNext('dig-4')">Συνεργάτες</button>
+            <button class="btn-back" onclick="showNext('dig-2')">Πίσω</button>
+        </div>
+    </div>
+
+    <div id="dig-4" class="menu-section">
+        <h2>Στάδιο Ιδέας</h2>
+        <div class="btn-stack">
+            <button onclick="showNext('finish')">Ιδέα</button>
+            <button onclick="showNext('finish')">MVP / Πρωτότυπο</button>
+            <button class="btn-back" onclick="showNext('dig-3')">Πίσω</button>
+        </div>
+    </div>
+
+    <div id="phys-1" class="menu-section">
+        <h2>Τομέας Φυσικής Επιχείρησης</h2>
+        <div class="btn-grid">
+            <button class="btn-small" onclick="showNext('phys-2-re')">🏠 Real Estate</button>
+            <button class="btn-small" onclick="showNext('phys-2-pr')">🏭 Παραγωγή</button>
+            <button class="btn-small" onclick="showNext('phys-3')">🏗 Κατασκευές</button>
+            <button class="btn-small" onclick="showNext('phys-3')">🛒 Εμπόριο</button>
+            <button class="btn-small" onclick="showNext('phys-3')">🌾 Αγροδιατροφή</button>
+            <button class="btn-small" onclick="showNext('phys-3')">🏨 Τουρισμός</button>
+        </div>
+        <button class="btn-back" onclick="showNext('type-choice')">Πίσω</button>
+    </div>
+
+    <div id="phys-2-re" class="menu-section">
+        <h2>Εξειδίκευση Real Estate</h2>
+        <div class="btn-stack">
+            <button onclick="showNext('phys-3')">Κατοικίες</button>
+            <button onclick="showNext('phys-3')">Επαγγελματικά</button>
+            <button class="btn-back" onclick="showNext('phys-1')">Πίσω</button>
+        </div>
+    </div>
+
+    <div id="phys-2-pr" class="menu-section">
+        <h2>Εξειδίκευση Παραγωγής</h2>
+        <div class="btn-stack">
+            <button onclick="showNext('phys-3')">Τρόφιμα</button>
+            <button onclick="showNext('phys-3')">Βιομηχανικά</button>
+            <button class="btn-back" onclick="showNext('phys-1')">Πίσω</button>
+        </div>
+    </div>
+
+    <div id="phys-3" class="menu-section">
+        <h2>Τι αναζητάς;</h2>
+        <div class="btn-stack">
+            <button onclick="showNext('phys-4')">Κεφάλαια</button>
+            <button onclick="showNext('phys-4')">Συνεργάτες</button>
+            <button class="btn-back" onclick="showNext('phys-1')">Πίσω</button>
+        </div>
+    </div>
+
+    <div id="phys-4" class="menu-section">
+        <h2>Διαθέτεις ίδια κεφάλαια;</h2>
+        <div class="btn-stack">
+            <button onclick="showNext('finish')">Ναι</button>
+            <button onclick="showNext('finish')">Όχι</button>
+            <button class="btn-back" onclick="showNext('phys-3')">Πίσω</button>
+        </div>
+    </div>
+
+    <div id="finish" class="menu-section">
+        <i class="material-icons" style="font-size: 60px; color: #10b981;">check_circle</i>
+        <h2>Επιτυχία!</h2>
+        <p>Το προφίλ σας δημιουργήθηκε.</p>
+        <button class="btn-back" onclick="showNext('start')">Επιστροφή στην Αρχή</button>
     </div>
 
     <div id="invest-path" class="menu-section">
-        <h2>📈 Επενδυτές</h2>
-        <p>Σύντομα διαθέσιμα projects.</p>
-        <button class="btn-back" onclick="showNext('start')"><i class="material-icons">arrow_back</i> Πίσω</button>
+        <h2>💰 Επενδύσεις</h2>
+        <p>Σύντομα κοντά σας.</p>
+        <button class="btn-back" onclick="showNext('start')">Πίσω</button>
     </div>
 </div>
 
 <script>
     function showNext(id) {
         document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
+        const target = document.getElementById(id);
+        if (target) {
+            target.classList.add('active');
+            window.scrollTo(0, 0); // Επιστροφή στην κορυφή
+        }
     }
 </script>
 
