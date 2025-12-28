@@ -3,39 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SynIdea - Universal Business Navigator</title>
+    <title>SynIdea - The Choice</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        :root { --primary: #2563eb; --secondary: #64748b; --success: #10b981; --bg: #f8fafc; }
+        :root { --primary: #2563eb; --tech: #8b5cf6; --phys: #3b82f6; --bg: #f8fafc; }
         body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: var(--bg); margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
         .container { background: white; padding: 40px; border-radius: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.05); text-align: center; max-width: 650px; width: 100%; }
         
-        /* Logo & Header */
-        .logo-box { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px; }
+        .logo-box { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 20px; }
         .bulb { font-size: 50px; color: #f1c40f; }
         .logo-text { font-size: 40px; font-weight: 800; color: #1e293b; letter-spacing: -1.5px; }
         .logo-text span { color: var(--primary); }
-        h2 { color: #1e293b; font-size: 1.6rem; margin-bottom: 25px; }
-
-        /* Main Pillars Grid */
-        .pillar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
         
+        h2 { color: #1e293b; margin-bottom: 25px; }
+        .btn-stack { display: flex; flex-direction: column; gap: 15px; align-items: center; }
+        
+        /* Big Action Buttons */
+        .btn-main { 
+            width: 100%; max-width: 400px; padding: 25px; border-radius: 20px; border: none;
+            cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 15px;
+            font-size: 18px; font-weight: 700; color: white;
+        }
+        .btn-phys { background: var(--phys); }
+        .btn-tech { background: var(--tech); }
+        .btn-main:hover { transform: scale(1.03); opacity: 0.9; }
+
+        /* Grid for Sectors */
+        .pillar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
         .pillar-card { 
             background: white; border: 2px solid #e2e8f0; padding: 20px; border-radius: 20px;
-            cursor: pointer; transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; gap: 12px;
+            cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; align-items: center; gap: 10px;
         }
-        .pillar-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(37, 99, 235, 0.1); }
-        .pillar-card i { font-size: 35px; color: var(--primary); }
-        .pillar-card span { font-weight: 700; color: #334155; font-size: 15px; }
-        .pillar-card small { color: #94a3b8; font-size: 12px; }
+        .pillar-card:hover { border-color: var(--primary); background: #f0f7ff; }
+        .pillar-card i { font-size: 30px; color: var(--primary); }
 
-        /* Navigation */
-        .btn-back { background: #f1f5f9; color: #64748b; border: none; padding: 10px 25px; border-radius: 10px; margin-top: 30px; cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; }
-        .btn-back:hover { background: #e2e8f0; }
-
+        .btn-back { background: none; border: none; color: #64748b; margin-top: 30px; cursor: pointer; font-weight: 600; text-decoration: underline; }
         .menu-section { display: none; }
         .active { display: block; animation: fadeIn 0.4s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -43,73 +48,42 @@
 <div class="container">
     <div id="start" class="menu-section active">
         <div class="logo-box"><i class="material-icons bulb">lightbulb</i><div class="logo-text">Syn<span>Idea</span></div></div>
-        <p style="color: #64748b;">Η Πλατφόρμα Σύνδεσης Επιχειρηματικού Φάσματος</p>
-        <div class="pillar-grid">
-            <div class="pillar-card" onclick="showNext('p1-prod')">
-                <i class="material-icons">factory</i>
-                <span>Παραγωγή & Ενέργεια</span>
-                <small>Αγροδιατροφή, Βιομηχανία</small>
-            </div>
-            <div class="pillar-card" onclick="showNext('p2-assets')">
-                <i class="material-icons">apartment</i>
-                <span>Υποδομές & Ακίνητα</span>
-                <small>Real Estate, Logistics</small>
-            </div>
-            <div class="pillar-card" onclick="showNext('p3-flow')">
-                <i class="material-icons">payments</i>
-                <span>Εμπόριο & Υπηρεσίες</span>
-                <small>Retail, Τουρισμός, Υγεία</small>
-            </div>
-            <div class="pillar-card" onclick="showNext('p4-digital')">
-                <i class="material-icons">devices_other</i>
-                <span>Ψηφιακή Οικονομία</span>
-                <small>Software, AI, E-commerce</small>
-            </div>
+        <p>Καλώς ήρθες. Ας ξεκινήσουμε την υλοποίηση.</p>
+        <div class="btn-stack">
+            <button class="btn-main btn-phys" onclick="showNext('choice-step')">🚀 Έχω μια Ιδέα</button>
+            <button style="background: #10b981;" class="btn-main" onclick="showNext('invest-path')">💰 Θέλω να Επενδύσω</button>
         </div>
     </div>
 
-    <div id="p1-prod" class="menu-section">
-        <h2>Παραγωγή & Ενέργεια</h2>
-        <div class="pillar-grid">
-            <div class="pillar-card" onclick="alert('Αγροδιατροφή')"><span>🌾 Αγροδιατροφή</span></div>
-            <div class="pillar-card" onclick="alert('Βιομηχανία')"><span>🏭 Βιομηχανία</span></div>
-            <div class="pillar-card" onclick="alert('Ενέργεια')"><span>⚡ Ενέργεια / ΑΠΕ</span></div>
-            <div class="pillar-card" onclick="alert('Συσκευασία')"><span>📦 Συσκευασία</span></div>
+    <div id="choice-step" class="menu-section">
+        <h2>Τι τύπου είναι η ιδέα σου;</h2>
+        <div class="btn-stack">
+            <button class="btn-main btn-phys" onclick="showNext('phys-pillars')">🏢 Φυσική Επιχείρηση</button>
+            <button class="btn-main btn-tech" onclick="showNext('tech-pillars')">💻 Ψηφιακή Ιδέα / App</button>
+            <button class="btn-back" onclick="showNext('start')">Πίσω στην αρχή</button>
         </div>
-        <button class="btn-back" onclick="showNext('start')"><i class="material-icons">arrow_back</i> Πίσω</button>
     </div>
 
-    <div id="p2-assets" class="menu-section">
-        <h2>Υποδομές & Ακίνητα</h2>
+    <div id="phys-pillars" class="menu-section">
+        <h2>Τομέας Φυσικής Επιχείρησης</h2>
         <div class="pillar-grid">
-            <div class="pillar-card" onclick="alert('Real Estate')"><span>🏠 Real Estate</span></div>
-            <div class="pillar-card" onclick="alert('Κατασκευές')"><span>🏗 Κατασκευές</span></div>
-            <div class="pillar-card" onclick="alert('Logistics')"><span>🚚 Logistics</span></div>
-            <div class="pillar-card" onclick="alert('Αποθήκευση')"><span>📦 Warehousing</span></div>
+            <div class="pillar-card" onclick="alert('Παραγωγή')"><i class="material-icons">factory</i><span>Παραγωγή & Ενέργεια</span></div>
+            <div class="pillar-card" onclick="alert('Υποδομές')"><i class="material-icons">apartment</i><span>Υποδομές & Ακίνητα</span></div>
+            <div class="pillar-card" onclick="alert('Εμπόριο')"><i class="material-icons">local_mall</i><span>Εμπόριο & Τουρισμός</span></div>
+            <div class="pillar-card" onclick="alert('Υπηρεσίες')"><i class="material-icons">handshake</i><span>Υπηρεσίες</span></div>
         </div>
-        <button class="btn-back" onclick="showNext('start')"><i class="material-icons">arrow_back</i> Πίσω</button>
+        <button class="btn-back" onclick="showNext('choice-step')">Πίσω</button>
     </div>
 
-    <div id="p3-flow" class="menu-section">
-        <h2>Εμπόριο & Υπηρεσίες</h2>
+    <div id="tech-pillars" class="menu-section">
+        <h2>Κατηγορία Ψηφιακής Ιδέας</h2>
         <div class="pillar-grid">
-            <div class="pillar-card" onclick="alert('Retail')"><span>🛒 Λιανικό Εμπόριο</span></div>
-            <div class="pillar-card" onclick="alert('Tourism')"><span>🏨 Τουρισμός</span></div>
-            <div class="pillar-card" onclick="alert('Health')"><span>🏥 Υγεία</span></div>
-            <div class="pillar-card" onclick="alert('Services')"><span>💼 Επαγγελματικές Υπηρεσίες</span></div>
+            <div class="pillar-card" onclick="alert('Software')"><i class="material-icons">code</i><span>SaaS & Λογισμικό</span></div>
+            <div class="pillar-card" onclick="alert('AI')"><i class="material-icons">psychology</i><span>Τεχνητή Νοημοσύνη</span></div>
+            <div class="pillar-card" onclick="alert('Ecom')"><i class="material-icons">shopping_cart</i><span>E-commerce</span></div>
+            <div class="pillar-card" onclick="alert('Fintech')"><i class="material-icons">account_balance</i><span>Fintech / Web3</span></div>
         </div>
-        <button class="btn-back" onclick="showNext('start')"><i class="material-icons">arrow_back</i> Πίσω</button>
-    </div>
-
-    <div id="p4-digital" class="menu-section">
-        <h2>Ψηφιακή Οικονομία</h2>
-        <div class="pillar-grid">
-            <div class="pillar-card" onclick="alert('SaaS')"><span>💻 Software / SaaS</span></div>
-            <div class="pillar-card" onclick="alert('AI')"><span>🤖 AI / Tech</span></div>
-            <div class="pillar-card" onclick="alert('Ecom')"><span>🛍 E-commerce</span></div>
-            <div class="pillar-card" onclick="alert('Fintech')"><span>💳 Fintech</span></div>
-        </div>
-        <button class="btn-back" onclick="showNext('start')"><i class="material-icons">arrow_back</i> Πίσω</button>
+        <button class="btn-back" onclick="showNext('choice-step')">Πίσω</button>
     </div>
 
 </div>
