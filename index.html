@@ -3,95 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SynIdea - KAD Tree Navigator</title>
+    <title>SynIdea - Ολοκληρωμένο Δέντρο Επιχειρήσεων</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        :root { --primary: #2563eb; --folder: #f59e0b; --bg: #f1f5f9; }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: var(--bg); margin: 0; padding: 20px; display: flex; justify-content: center; }
-        .container { background: white; padding: 30px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 700px; width: 100%; text-align: center; }
+        :root { --primary: #2563eb; --accent: #f59e0b; --bg: #f8fafc; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
         
-        .header { margin-bottom: 30px; }
-        .logo { font-size: 32px; font-weight: 800; color: #1e293b; }
-        .logo span { color: var(--primary); }
-
-        /* Tree Styles */
-        .tree-container { text-align: left; border-left: 2px solid #e2e8f0; padding-left: 15px; margin-top: 20px; }
-        .node { 
-            padding: 12px 15px; margin: 8px 0; background: #fff; border: 1px solid #e2e8f0; 
-            border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 12px;
-            transition: 0.2s; font-size: 15px; font-weight: 500; color: #334155;
+        .tree-node { margin-left: 15px; border-left: 2px solid #e2e8f0; }
+        .folder { 
+            display: flex; align-items: center; gap: 10px; padding: 12px; 
+            cursor: pointer; transition: 0.2s; border-radius: 8px; font-weight: 600;
         }
-        .node:hover { background: #f8fafc; border-color: var(--primary); transform: translateX(5px); }
-        .node i { color: var(--folder); font-size: 20px; }
-        .node.section { background: #eff6ff; color: #1e40af; border-color: #bfdbfe; }
+        .folder:hover { background: #f1f5f9; color: var(--primary); }
+        .folder i { color: var(--accent); }
         
-        .breadcrumb { font-size: 14px; color: #64748b; margin-bottom: 20px; display: flex; gap: 5px; }
-        .btn-back { background: #64748b; color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; margin-top: 20px; }
+        .content { display: none; margin-left: 25px; }
+        .content.active { display: block; }
         
-        .menu-section { display: none; }
-        .active { display: block; animation: slideIn 0.3s ease; }
-        @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+        .item { 
+            padding: 8px 15px; margin: 5px 0; background: #fff; border: 1px solid #f1f5f9;
+            border-radius: 6px; font-size: 14px; color: #475569; display: flex; align-items: center; gap: 10px;
+        }
+        .item i { color: var(--primary); font-size: 18px; }
+        .kad-code { font-weight: bold; color: var(--primary); background: #eff6ff; padding: 2px 6px; border-radius: 4px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="header">
-        <div class="logo">Syn<span>Idea</span></div>
-        <p>Φάκελος Επιχειρηματικής Δραστηριότητας (ΚΑΔ)</p>
-    </div>
-
-    <div id="lvl-1" class="menu-section active">
-        <h3>Επιλέξτε Κύριο Τμήμα</h3>
-        <div class="tree-container">
-            <div class="node section" onclick="showNext('lvl-2-C')"><i class="material-icons">factory</i>Τμήμα Γ: ΜΕΤΑΠΟΙΗΣΗ</div>
-            <div class="node section" onclick="showNext('lvl-2-G')"><i class="material-icons">shopping_cart</i>Τμήμα Ζ: ΧΟΝΔΡΙΚΟ & ΛΙΑΝΙΚΟ ΕΜΠΟΡΙΟ</div>
-            <div class="node section" onclick="showNext('lvl-2-I')"><i class="material-icons">hotel</i>Τμήμα Ι: ΚΑΤΑΛΥΜΑΤΑ & ΕΣΤΙΑΣΗ</div>
-            <div class="node section" onclick="showNext('lvl-2-L')"><i class="material-icons">home</i>Τμήμα Μ: ΔΙΑΧΕΙΡΙΣΗ ΑΚΙΝΗΤΗΣ ΠΕΡΙΟΥΣΙΑΣ</div>
-            <div class="node section" onclick="alert('Σύντομα...')"><i class="material-icons">more_horiz</i>Υπόλοιπα Τμήματα (Α-Σ)...</div>
-        </div>
-    </div>
-
-    <div id="lvl-2-C" class="menu-section">
-        <div class="breadcrumb">Τμήμα Γ > Μεταποίηση</div>
-        <h3>Επιλέξτε Κλάδο</h3>
-        <div class="tree-container">
-            <div class="node" onclick="showNext('lvl-3-C10')"><i class="material-icons">restaurant</i>10: Βιομηχανία Τροφίμων</div>
-            <div class="node" onclick="alert('Ποτά')"><i class="material-icons">local_bar</i>11: Ποτοποιία</div>
-            <div class="node" onclick="alert('Ένδυση')"><i class="material-icons">checkroom</i>14: Κατασκευή Ειδών Ένδυσης</div>
-        </div>
-        <button class="btn-back" onclick="showNext('lvl-1')">Πίσω</button>
-    </div>
-
-    <div id="lvl-3-C10" class="menu-section">
-        <div class="breadcrumb">Τμήμα Γ > Κλάδος 10</div>
-        <h3>Επιλέξτε Ομάδα</h3>
-        <div class="tree-container">
-            <div class="node" onclick="alert('Τελικός ΚΑΔ: 10.81 - Παραγωγή Ζάχαρης')">10.81: Παραγωγή Ζάχαρης</div>
-            <div class="node" onclick="alert('Τελικός ΚΑΔ: 10.82 - Σοκολατοποιία')">10.82: Παραγωγή Κακάο & Σοκολάτας</div>
-            <div class="node" onclick="alert('Τελικός ΚΑΔ: 10.83 - Καφές/Τσάι')">10.83: Επεξεργασία Τσαγιού & Καφέ</div>
-        </div>
-        <button class="btn-back" onclick="showNext('lvl-2-C')">Πίσω</button>
-    </div>
-
-    <div id="lvl-2-L" class="menu-section">
-        <div class="breadcrumb">Τμήμα Μ > Real Estate</div>
-        <h3>Επιλέξτε Δραστηριότητα</h3>
-        <div class="tree-container">
-            <div class="node" onclick="alert('ΚΑΔ 68.1: Αγοραπωλησία ιδιόκτητων ακινήτων')">68.1: Αγοραπωλησία Ιδιόκτητων Ακινήτων</div>
-            <div class="node" onclick="alert('ΚΑΔ 68.2: Εκμίσθωση/Διαχείριση ακινήτων')">68.2: Εκμίσθωση & Διαχείριση Ακινήτων</div>
-            <div class="node" onclick="alert('ΚΑΔ 68.3: Δραστηριότητες με αμοιβή/σύμβαση')">68.3: Μεσιτικά γραφεία</div>
-        </div>
-        <button class="btn-back" onclick="showNext('lvl-1')">Πίσω</button>
-    </div>
-
+    <h2 style="text-align:center;">Επιχειρηματικός Φάκελος SynIdea</h2>
+    <p style="text-align:center; color: #64748b;">Επιλέξτε την κατηγορία της ιδέας σας</p>
+    <div id="master-tree"></div>
 </div>
 
 <script>
-    function showNext(id) {
-        document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
+// Η ΒΑΣΗ ΔΕΔΟΜΕΝΩΝ ΜΕ ΟΛΑ ΤΑ ΕΠΑΓΓΕΛΜΑΤΑ
+const synidea_db = {
+    "1. Αγροδιατροφή & Παραγωγή": {
+        "Καλλιέργειες": ["01.11 - Δημητριακά", "01.13 - Κηπευτικά", "01.21 - Αμπέλια", "01.26 - Ελιές"],
+        "Κτηνοτροφία": ["01.41 - Γαλακτοφόρα βοοειδή", "01.45 - Αιγοπρόβατα"],
+        "Μεταποίηση": ["10.41 - Ελαιουργεία", "10.51 - Τυροκομικά", "10.71 - Αρτοποιία"]
+    },
+    "2. Κατασκευές & Ενέργεια": {
+        "Οικοδομή": ["41.20 - Κατοικίες", "43.32 - Ξυλουργικά"],
+        "Ενέργεια": ["35.11 - Φωτοβολταϊκά/Αιολικά"]
+    },
+    "3. Εμπόριο (Retail & E-shop)": {
+        "Λιανική": ["47.11 - Super Market", "47.71 - Ένδυση"],
+        "E-Commerce": ["47.91 - Πωλήσεις μέσω Διαδικτύου"]
+    },
+    "4. Τουρισμός & Εστίαση": {
+        "Καταλύματα": ["55.10 - Ξενοδοχεία", "55.20 - Airbnb"],
+        "Εστίαση": ["56.10 - Εστιατόρια", "56.30 - Καφετέριες/Bar"]
     }
+    // Εδώ προσθέτουμε όλη τη λίστα που φτιάξαμε
+};
+
+function createTree(data, container) {
+    for (let key in data) {
+        let node = document.createElement('div');
+        node.className = 'tree-node';
+        
+        let folder = document.createElement('div');
+        folder.className = 'folder';
+        folder.innerHTML = `<i class="material-icons">folder</i> ${key}`;
+        
+        let content = document.createElement('div');
+        content.className = 'content';
+        
+        folder.onclick = function() {
+            content.classList.toggle('active');
+            this.querySelector('i').innerText = content.classList.contains('active') ? 'folder_open' : 'folder';
+        };
+
+        if (typeof data[key] === 'object' && !Array.isArray(data[key])) {
+            createTree(data[key], content);
+        } else {
+            data[key].forEach(item => {
+                let itemDiv = document.createElement('div');
+                itemDiv.className = 'item';
+                let parts = item.split(' - ');
+                itemDiv.innerHTML = `<i class="material-icons">article</i> <span class="kad-code">${parts[0]}</span> ${parts[1]}`;
+                itemDiv.onclick = (e) => {
+                    e.stopPropagation();
+                    alert("Επιλέχθηκε: " + item);
+                };
+                content.appendChild(itemDiv);
+            });
+        }
+        
+        node.appendChild(folder);
+        node.appendChild(content);
+        container.appendChild(node);
+    }
+}
+
+createTree(synidea_db, document.getElementById('master-tree'));
 </script>
 
 </body>
