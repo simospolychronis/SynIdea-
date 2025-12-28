@@ -12,19 +12,19 @@
         .bulb { font-size: 45px; color: #f1c40f; }
         .logo-text { font-size: 35px; font-weight: 800; color: #2c3e50; }
         .logo-text span { color: #3498db; }
-        p { color: #636e72; margin-bottom: 30px; }
+        p { color: #636e72; margin-bottom: 30px; line-height: 1.5; }
         .btn-group { display: flex; flex-direction: column; gap: 12px; align-items: center; }
         button { 
             background-color: #3498db; color: white; border: none; 
-            padding: 12px 20px; font-size: 16px; cursor: pointer; 
-            border-radius: 8px; transition: 0.3s; font-weight: 600; width: 100%; max-width: 250px;
+            padding: 12px 20px; font-size: 15px; cursor: pointer; 
+            border-radius: 8px; transition: 0.3s; font-weight: 600; width: 100%; max-width: 300px;
         }
-        button:hover { transform: scale(1.05); opacity: 0.9; }
+        button:hover { transform: scale(1.02); opacity: 0.9; }
         .btn-invest { background-color: #27ae60; }
-        .btn-back { background-color: #bdc3c7; margin-top: 10px; }
+        .btn-back { background-color: #bdc3c7; margin-top: 15px; width: auto; min-width: 100px; }
         .menu-section { display: none; }
-        .active { display: block; animation: fadeIn 0.5s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .active { display: block; animation: fadeIn 0.4s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -35,44 +35,35 @@
             <span class="material-icons bulb">lightbulb</span>
             <div class="logo-text">Syn<span>Idea</span></div>
         </div>
-        <p>Σύνδεση Ιδεών & Επενδύσεων</p>
+        <p>Καλώς ήρθες! Τι θέλεις να κάνεις;</p>
         <div class="btn-group">
-            <button onclick="showNext('idea-path')">Έχω μια Ιδέα</button>
+            <button onclick="showNext('idea-choice')">Έχω μια Ιδέα</button>
             <button class="btn-invest" onclick="showNext('invest-path')">Θέλω να Επενδύσω</button>
         </div>
     </div>
 
-    <div id="idea-path" class="menu-section">
-        <h3>Σε ποιον τομέα ανήκει η ιδέα σου;</h3>
+    <div id="idea-choice" class="menu-section">
+        <h3>Πώς θέλεις να προχωρήσεις;</h3>
         <div class="btn-group">
-            <button onclick="showNext('tech-final')">💻 Τεχνολογία</button>
-            <button onclick="showNext('green-final')" style="background-color: #2ecc71;">🌱 Περιβάλλον</button>
-            <button onclick="showNext('social-final')" style="background-color: #9b59b6;">🤝 Κοινωνική Ιδέα</button>
+            <button onclick="showNext('idea-path')">Υλοποίηση μόνος & αναζήτηση επενδυτών</button>
+            <button onclick="showNext('idea-path')" style="background-color: #8e44ad;">Εύρεση συνεργατών για κοινή υλοποίηση</button>
             <button class="btn-back" onclick="showNext('start')">⬅ Πίσω</button>
         </div>
     </div>
 
-    <div id="tech-final" class="menu-section">
-        <h3>🚀 Τομέας Τεχνολογίας</h3>
-        <p>Η ιδέα σου μπορεί να είναι το επόμενο μεγάλο App!</p>
-        <button class="btn-back" onclick="showNext('start')">Αρχή</button>
-    </div>
-
-    <div id="green-final" class="menu-section">
-        <h3>🌱 Πράσινη Ιδέα</h3>
-        <p>Εξαιρετικά! Ο κόσμος χρειάζεται βιώσιμες λύσεις.</p>
-        <button class="btn-back" onclick="showNext('start')">Αρχή</button>
-    </div>
-
-    <div id="social-final" class="menu-section">
-        <h3>🤝 Κοινωνική Επιχείρηση</h3>
-        <p>Μια ιδέα που βοηθάει τους ανθρώπους είναι πάντα σπουδαία.</p>
-        <button class="btn-back" onclick="showNext('start')">Αρχή</button>
+    <div id="idea-path" class="menu-section">
+        <h3>Σε ποιον τομέα ανήκει η ιδέα;</h3>
+        <div class="btn-group">
+            <button onclick="alert('Επιλέχθηκε: Τεχνολογία')">💻 Τεχνολογία</button>
+            <button onclick="alert('Επιλέχθηκε: Περιβάλλον')" style="background-color: #2ecc71;">🌱 Περιβάλλον</button>
+            <button onclick="alert('Επιλέχθηκε: Υπηρεσίες')" style="background-color: #e67e22;">🛎 Υπηρεσίες</button>
+            <button class="btn-back" onclick="showNext('idea-choice')">⬅ Πίσω</button>
+        </div>
     </div>
 
     <div id="invest-path" class="menu-section">
         <h3>📈 Επενδύσεις</h3>
-        <p>Σύντομα θα μπορείτε να δείτε διαθέσιμα Projects.</p>
+        <p>Εδώ θα βλέπετε σύντομα διαθέσιμα projects.</p>
         <button class="btn-back" onclick="showNext('start')">Πίσω</button>
     </div>
 </div>
